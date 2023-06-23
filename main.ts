@@ -1,10 +1,7 @@
 let tmp = 0
 let h = 0
-basic.forever(function () {
-    tmp = pins.analogReadPin(AnalogPin.P0)
-    basic.showNumber(tmp)
-})
-basic.forever(function () {
+let wetness = 0
+input.onButtonPressed(Button.A, function () {
     if (20 < tmp) {
         basic.showString("Opening light")
         pins.digitalWritePin(DigitalPin.P8, 1)
@@ -16,6 +13,15 @@ basic.forever(function () {
     } else {
         pins.digitalWritePin(DigitalPin.P8, 0)
     }
+})
+input.onButtonPressed(Button.AB, function () {
+    basic.showNumber(wetness)
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showNumber(tmp)
+})
+basic.forever(function () {
+    wetness = pins.digitalReadPin(DigitalPin.P0)
 })
 basic.forever(function () {
     dht11_dht22.queryData(
